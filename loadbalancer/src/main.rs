@@ -29,9 +29,15 @@ fn handle_client_connection(mut stream: TcpStream) {
         match str::from_utf8(&buffer[..bytes]) {
             Ok(request) => {
                 println!("Mensagem recebida: {request}");
+                send_message_to_server(request);
                 stream.write_all(b"Mensagem recebida").unwrap();
             }
             Err(e) => println!("Error: {e}")
         }
     }
+}
+
+fn send_message_to_server(request: &str) {
+    let mut stream = TcpStream::connect("127.0.0.1:3000").unwrap();
+    stream.write_all(request.as_bytes()).unwrap();
 }
