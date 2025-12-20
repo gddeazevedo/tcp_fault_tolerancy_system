@@ -11,12 +11,12 @@ fn main() {
         let stream = stream.unwrap();
 
         thread::spawn(|| {
-            handle_client_connection(stream);
+            handle_connection(stream);
         });
     }
 }
 
-fn handle_client_connection(mut stream: TcpStream) {
+fn handle_connection(mut stream: TcpStream) {
     let mut buffer: [u8; 1024] = [0; 1024];
 
     loop {
