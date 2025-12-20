@@ -1,15 +1,11 @@
-use std::net::{Ipv4Addr, SocketAddrV4, TcpListener, TcpStream};
+use std::net::{TcpListener, TcpStream};
 use std::io::{Read, Write};
 use std::thread;
 
-const IP: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
-const PORT: u16 = 8080;
-
 fn main() {
-    let address = SocketAddrV4::new(IP, PORT);
-    let server = TcpListener::bind(address).unwrap();
+    let server = TcpListener::bind("127.0.0.1:8080").unwrap();
 
-    println!("Load balancer rodando em {}:{}", IP, PORT);
+    println!("Load balancer rodando em 127.0.0.1:8080");
 
     for stream in server.incoming() {
         let stream = stream.unwrap();
